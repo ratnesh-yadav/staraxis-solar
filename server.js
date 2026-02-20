@@ -1,10 +1,12 @@
 require("dotenv").config();
 const express = require("express");
-const nodemailer = require("nodemailer");
 const path = require("path");
+const { Resend } = require("resend");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -38,35 +40,26 @@ app.post("/send", async (req, res) => {
     return res.status(400).json({ error: errors.join(" ") });
   }
 
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false, // must be false for 587
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD,
-    },
-    tls: {
-      rejectUnauthorized: false,
-    },
-  });
+  try {
+    await resend.emails.send({
+      from: "Staraxis Solar <onboarding@resend.dev>",
+      to: process.env.EMAIL,
+      subject: "New Solar Quotation Request",
+      html: `
+      <h2>New Solar Quotation Request</h2>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Phone:</strong> ${phone}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Location:</strong> ${location}</p>
+      <p><strong>Capacity:</strong> ${capacity} kW</p>
+    `,
+    });
 
-  const mailOptions = {
-    from: process.env.EMAIL,
-    to: process.env.EMAIL,
-    subject: "New Solar Quotation Request",
-    text: `
-        Name: ${name}
-        Phone: ${phone}
-        Email: ${email}
-        Location: ${location}
-        Capacity: ${capacity} kW
-        `,
-  };
-
-  await transporter.sendMail(mailOptions);
-
-  res.sendFile(path.join(__dirname, "public", "success.html"));
+    res.sendFile(path.join(__dirname, "public", "success.html"));
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Email sending failed");
+  }
 });
 
 app.post("/complaint", async (req, res) => {
@@ -91,28 +84,24 @@ app.post("/complaint", async (req, res) => {
     return res.status(400).json({ error: errors.join(" ") });
   }
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD,
-    },
-  });
+  try {
+    await resend.emails.send({
+      from: "Staraxis Solar <onboarding@resend.dev>",
+      to: process.env.EMAIL,
+      subject: "New Complaint - Staraxis Solar",
+      html: `
+      <h2>New Complaint</h2>
+      <p><strong>Phone:</strong> ${phone}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Complaint:</strong> ${complaint}</p>
+    `,
+    });
 
-  const mailOptions = {
-    from: process.env.EMAIL,
-    to: process.env.EMAIL,
-    subject: "New Complaint - Staraxis Solar",
-    text: `
-        Phone: ${phone}
-        Email: ${email}
-        Complaint: ${complaint}
-        `,
-  };
-
-  await transporter.sendMail(mailOptions);
-
-  res.sendFile(path.join(__dirname, "public", "complaint-success.html"));
+    res.sendFile(path.join(__dirname, "public", "complaint-success.html"));
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Email sending failed");
+  }
 });
 
 app.post("/service-request", async (req, res) => {
@@ -153,31 +142,27 @@ app.post("/service-request", async (req, res) => {
     return res.status(400).json({ error: errors.join(" ") });
   }
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD,
-    },
-  });
+  try {
+    await resend.emails.send({
+      from: "Staraxis Solar <onboarding@resend.dev>",
+      to: process.env.EMAIL,
+      subject: "New Service Request - Staraxis Solar",
+      html: `
+      <h2>New Service Request</h2>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Phone:</strong> ${phone}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>System Model:</strong> ${system_model}</p>
+      <p><strong>Service Type:</strong> ${service_type}</p>
+      <p><strong>Description:</strong> ${description}</p>
+    `,
+    });
 
-  const mailOptions = {
-    from: process.env.EMAIL,
-    to: process.env.EMAIL,
-    subject: "New Service Request - Staraxis Solar",
-    text: `
-        Name: ${name}
-        Phone: ${phone}
-        Email: ${email}
-        System Model/Capacity: ${system_model}
-        Service Type: ${service_type}
-        Description: ${description}
-        `,
-  };
-
-  await transporter.sendMail(mailOptions);
-
-  res.sendFile(path.join(__dirname, "public", "service-success.html"));
+    res.sendFile(path.join(__dirname, "public", "service-success.html"));
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Email sending failed");
+  }
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
