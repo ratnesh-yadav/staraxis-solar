@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Staraxis Solar | Structured for Tomorrow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">STARAXIS SOLAR</a>
+            <div class="nav-links">
+                <a href="/" class="active">Home</a>
+                <a href="/request-quote.html">Request Quote</a>
+                <a href="/complaint.html">Raise Complaint</a>
+                <a href="/service-maintenance.html">Service & Maintenance</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="helpline">
+        <p>📞 Helpline: <strong>+91-8750623872</strong></p>
+    </div>
+
+    <header>
+        <div class="overlay">
+            <h1>STARAXIS SOLAR</h1>
+            <p>Structured for Tomorrow</p>
+            <a href="/request-quote.html" class="btn">Request Free Quote</a>
+        </div>
+    </header>
+
+    <section class="about">
+        <h2>About Staraxis</h2>
+        <p>We provide high-performance rooftop solar solutions for residential and commercial projects with complete
+            execution and compliance support.</p>
+    </section>
+
+    <section class="pricing">
+        <h2>Solar Project Pricing</h2>
+
+        <div class="pricing-toggle">
+            <button class="toggle-btn active" onclick="showSubsidized()">Subsidized Pricing</button>
+            <button class="toggle-btn" onclick="showNonSubsidized()">Non-Subsidized Pricing</button>
+        </div>
+
+        <div id="subsidized-pricing" class="pricing-content active">
+            <h3>Subsidized Solar Projects</h3>
+            <p style="font-size: 14px; color: #666; margin-bottom: 30px;">Avail government subsidy upto ₹78,000 on
+                your solar installation</p>
+            <div class="pricing-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Capacity</th>
+                            <th>Total Amount</th>
+                            <th>Subsidy (Flat)</th>
+                            <th>Net Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>3 kW</strong></td>
+                            <td>₹2,00,000</td>
+                            <td style="color: #4caf50;">₹78,000</td>
+                            <td><strong>₹1,22,000</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>5 kW</strong></td>
+                            <td>₹3,20,000</td>
+                            <td style="color: #4caf50;">₹78,000</td>
+                            <td><strong>₹2,42,000</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>10 kW</strong></td>
+                            <td>₹3,78,000</td>
+                            <td style="color: #4caf50;">₹78,000</td>
+                            <td><strong>₹3,00,000</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="non-subsidized-pricing" class="pricing-content">
+            <h3>Non-Subsidized Solar Projects</h3>
+            <p style="font-size: 14px; color: #666; margin-bottom: 30px;">Full cost pricing without government subsidies
+            </p>
+            <div class="pricing-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Capacity</th>
+                            <th>Total Amount</th>
+                            <th>Installation & Support</th>
+                            <th>Final Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>3 kW</strong></td>
+                            <td>₹1,50,000</td>
+                            <td>₹0</td>
+                            <td><strong>₹1,50,000</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>5 kW</strong></td>
+                            <td>₹2,80,000</td>
+                            <td>₹0</td>
+                            <td><strong>₹2,80,000</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>10 kW</strong></td>
+                            <td>₹3,50,000</td>
+                            <td>₹0</td>
+                            <td><strong>₹3,50,000</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+        function showSubsidized() {
+            document.getElementById('subsidized-pricing').classList.add('active');
+            document.getElementById('non-subsidized-pricing').classList.remove('active');
+            document.querySelectorAll('.toggle-btn')[0].classList.add('active');
+            document.querySelectorAll('.toggle-btn')[1].classList.remove('active');
+        }
+
+        function showNonSubsidized() {
+            document.getElementById('non-subsidized-pricing').classList.add('active');
+            document.getElementById('subsidized-pricing').classList.remove('active');
+            document.querySelectorAll('.toggle-btn')[1].classList.add('active');
+            document.querySelectorAll('.toggle-btn')[0].classList.remove('active');
+        }
+    </script>
+
+    <section id="quote" class="quote">
+        <h2>Request Quotation / Site Visit</h2>
+        <p>Get a free quotation for your solar installation project. Our experts will design a customized solution for
+            your needs.</p>
+        <a href="/request-quote.html" class="btn btn-secondary">Go to Request Quote Page</a>
+    </section>
+
+    <section id="complaint" class="complaint">
+        <h2>Raise a Complaint</h2>
+        <p>We value your feedback and take all complaints seriously. Let us know if you have any concerns.</p>
+        <a href="/complaint.html" class="btn btn-secondary">Go to Raise Complaint Page</a>
+    </section>
+
+    <section class="contact">
+        <h2>Contact Us</h2>
+        <p>📞 +91-8750623872</p>
+        <p>📧 staraxissolar@gmail.com</p>
+        <p>📍 Faridabad, Haryana</p>
+    </section>
+
+    <footer>
+        <p>© 2026 Staraxis Solar. All Rights Reserved.</p>
+    </footer>
+
+</body>
+
+</html>
